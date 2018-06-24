@@ -6,7 +6,7 @@
 #include <sstream>
 #include <string>
 #include <iterator>
-
+#include <cmath>
 #include "particle_filter.h"
 
 void ParticleFilter::init(double x, double y, double theta, double std_devs[]) {
@@ -46,8 +46,8 @@ void ParticleFilter::prediction(double delta_t, double std_devs[], double veloci
 		double x_diff = velocity / yaw_rate * (sin(particle.theta + yaw_rate * delta_t) - sin(particle.theta));
 		double y_diff = velocity / yaw_rate * (cos(particle.theta) - cos(particle.theta + yaw_rate * delta_t));
 
-		particle.x += isnan(x_diff) ? 0.0 : x_diff;
-		particle.y += isnan(y_diff) ? 0.0 : y_diff;
+		particle.x += std::isnan(x_diff) ? 0.0 : x_diff;
+		particle.y += std::isnan(y_diff) ? 0.0 : y_diff;
 		particle.theta += delta_t * yaw_rate;
 
 
